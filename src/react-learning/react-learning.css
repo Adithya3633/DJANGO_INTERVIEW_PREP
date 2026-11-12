@@ -1,0 +1,85 @@
+#react-learning {
+  --ink: #15211b; --ink2: #506258; --paper: #f4f7f5; --card: #ffffff; --line: #d8e2dc;
+  --side: #103326; --side-text: #d5e4dc; --accent: #0c6950; --good: #1f8050; --warn: #a45b0a;
+  --code-bg: #0f1f18; --code-text: #e4f1e9;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  #react-learning { --ink: #e6efe9; --ink2: #b5c5bb; --paper: #0e1612; --card: #17231c; --line: #34473d; --side: #09140e; --accent: #71d5a5; --good: #66d69b; --warn: #f0ad55; }
+}
+#react-learning * { box-sizing: border-box; }
+#react-learning { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--sans); }
+#react-learning button, #react-learning input, #react-learning select { font: inherit; color: inherit; }
+#react-learning button { cursor: pointer; }
+#react-learning :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#react-learning .layout { display: grid; grid-template-columns: 300px 1fr; min-height: 100vh; background: var(--paper); color: var(--ink); }
+#react-learning .side { background: var(--side); color: var(--side-text); padding: 28px 20px; position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+#react-learning .side h1 { font: 650 1.4rem var(--serif); color: #fff; margin: 0 0 16px 8px; }
+#react-learning .overall { margin: 0 8px 20px; }
+#react-learning .bar { height: 6px; background: #ffffff22; border-radius: 3px; overflow: hidden; margin-bottom: 6px; }
+#react-learning .bar div { height: 100%; background: #4fd1a5; transition: width .3s; }
+#react-learning .overall small { color: var(--side-text); }
+#react-learning nav { display: flex; flex-direction: column; gap: 2px; }
+#react-learning .mod { display: flex; justify-content: space-between; gap: 8px; text-align: left; background: none; border: 0; color: var(--side-text); padding: 10px 12px; border-radius: 8px; transition: background .16s; }
+#react-learning .mod em { font-style: normal; color: #bfd0c5; font-size: .85rem; white-space: nowrap; }
+#react-learning .mod:hover { background: #ffffff16; }
+#react-learning .mod.active { background: #ffffff20; color: #fff; box-shadow: inset 3px 0 0 #71d5a5; }
+#react-learning .reset { margin: 20px 8px 0; background: none; border: 1px solid #ffffff50; color: var(--side-text); border-radius: 8px; padding: 8px 12px; }
+#react-learning main { padding: 40px clamp(20px, 4vw, 56px) 72px; max-width: 1100px; width: 100%; }
+#react-learning header { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+#react-learning header h2 { font: 650 1.9rem/1.2 var(--serif); margin: 0; letter-spacing: -.02em; }
+#react-learning header small { color: var(--ink2); }
+#react-learning .burger { display: none; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 7px 11px; }
+#react-learning .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 22px; padding: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; }
+#react-learning .tabs { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--paper); }
+#react-learning .tab { background: none; border: 0; padding: 8px 16px; }
+#react-learning .tab.on { background: var(--side); color: #fff; }
+#react-learning input[type="search"] { flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+#react-learning select { padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); }
+#react-learning .toolbar { display: flex; gap: 8px; margin-bottom: 12px; }
+#react-learning .toolbar button, #react-learning .nav button, #react-learning .flash-meta button, #react-learning .actions button, #react-learning .code-bar button { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; }
+#react-learning .toolbar button:hover, #react-learning .nav button:hover { border-color: var(--accent); }
+#react-learning .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 12px; border-left: 4px solid var(--line); box-shadow: 0 5px 16px #15211b08; }
+#react-learning article { max-width: none; margin: 0 0 10px; }
+#react-learning .card.learned { border-left-color: var(--good); }
+#react-learning .card.review { border-left-color: var(--warn); }
+#react-learning .card-head { display: flex; align-items: baseline; gap: 12px; width: 100%; text-align: left; background: none; border: 0; padding: 17px 18px; }
+#react-learning .qnum { color: var(--ink2); font-variant-numeric: tabular-nums; min-width: 2.2ch; }
+#react-learning .qtext { flex: 1; font: 600 1.08rem/1.4 var(--serif); }
+#react-learning .chev { color: var(--accent); font-size: 1.3rem; }
+#react-learning .card-body { padding: 0 20px 18px 50px; max-width: 76ch; }
+#react-learning .card-body p, #react-learning .flash-a p { margin: .6em 0; }
+#react-learning .card-body ul, #react-learning .flash-a ul { padding-left: 1.2em; margin: .5em 0; }
+#react-learning .table-wrap { overflow-x: auto; margin: 12px 0; }
+#react-learning table { border-collapse: collapse; min-width: 100%; font-size: .94rem; }
+#react-learning th, #react-learning td { border: 1px solid var(--line); padding: 7px 12px; text-align: left; vertical-align: top; }
+#react-learning th { background: color-mix(in srgb, var(--accent) 14%, var(--card)); }
+#react-learning .code { margin: 12px 0; border-radius: 8px; overflow: hidden; background: var(--code-bg); }
+#react-learning .code-bar { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px 4px 14px; color: #8fa3ba; font: .78rem var(--mono); border-bottom: 1px solid #ffffff14; }
+#react-learning .code-bar button { background: none; border-color: #ffffff2e; color: #c5d3e3; padding: 2px 10px; font-size: .78rem; }
+#react-learning pre { margin: 0; padding: 14px; overflow-x: auto; color: var(--code-text); font: .86rem/1.55 var(--mono); }
+#react-learning .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+#react-learning .actions .good.on { background: var(--good); border-color: var(--good); color: #fff; }
+#react-learning .actions .warn.on { background: var(--warn); border-color: var(--warn); color: #fff; }
+#react-learning .flash { max-width: 760px; }
+#react-learning .flash-meta, #react-learning .nav { display: flex; justify-content: space-between; align-items: center; margin: 10px 0; color: var(--ink2); }
+#react-learning .flash-card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: clamp(24px, 4vw, 36px); min-height: 280px; box-shadow: 0 10px 28px #15211b0a; }
+#react-learning .flash-q { font: 600 1.5rem/1.35 var(--serif); margin: 0 0 20px; }
+#react-learning .primary { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 10px 20px; }
+#react-learning .hint, #react-learning .empty { color: var(--ink2); font-size: .92rem; }
+@media (max-width: 860px) {
+  #react-learning .layout { grid-template-columns: 1fr; }
+  #react-learning .side { display: block; position: fixed; z-index: 10; inset: 0 auto 0 0; width: 290px; height: 100vh; padding: 24px 16px; transform: translateX(-100%); transition: transform .2s; }
+  #react-learning .side.open { display: block; inset: 0 auto 0 0; width: 290px; padding: 24px 16px; transform: none; }
+  #react-learning .burger { display: block; }
+  #react-learning .card-body { padding-left: 16px; }
+}
+@media (max-width: 620px) {
+  #react-learning main { padding: 64px 14px 48px; }
+  #react-learning header h2 { font-size: 1.55rem; }
+  #react-learning .controls { padding: 10px; }
+  #react-learning .card-head { padding: 15px 14px; }
+}
+@media (prefers-reduced-motion: reduce) { #react-learning * { transition: none !important; } }

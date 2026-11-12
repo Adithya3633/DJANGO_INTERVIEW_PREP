@@ -1,0 +1,51 @@
+# MODULE 5 – Lists, Keys and Conditional Rendering
+## 69. What is conditional rendering?
+Displaying different UI elements depending on a condition.
+```jsx
+{isLoggedIn ? <h1>Welcome</h1> : <h1>Please Login</h1>}
+```
+## 70. What are the different ways of conditional rendering?
+```jsx
+// 1. if/else
+if (isLoggedIn) {
+  return <h1>Welcome</h1>;
+}
+return <h1>Login</h1>;
+
+// 2. Ternary operator
+{isLoggedIn ? <h1>Welcome</h1> : <h1>Login</h1>}
+
+// 3. Logical AND
+{isLoggedIn && <h1>Welcome</h1>}
+```
+## 71. How do you render a list in React?
+Commonly with the JavaScript map() method.
+```jsx
+const users = ["Adithya", "Rahul", "Kiran"];
+
+<ul>
+  {users.map((user, index) => (
+    <li key={index}>{user}</li>
+  ))}
+</ul>
+```
+## 72. What is the key prop in React?
+A special attribute that helps React identify elements in a list between renders.
+```jsx
+users.map(user => (
+  <h2 key={user.id}>{user.name}</h2>
+));
+```
+## 73. Why should we not use array index as a key?
+Indices become unreliable when items are added, deleted or reordered. React may associate the wrong component state with an item. Use a stable unique identifier whenever possible.
+## 74. What happens if we don't provide keys?
+React may show a warning in development. Without stable keys, React may have difficulty correctly matching list elements during reconciliation.
+## 75. What is the difference between map() and forEach() in React?
+| map() | forEach() |
+| Returns a new array | Returns undefined |
+| Used to transform data | Used to perform operations |
+| Commonly used for rendering lists | Not directly suitable for JSX list rendering |
+```js
+const result = [1, 2, 3].map(num => num * 2);
+console.log(result); // [2, 4, 6]
+```

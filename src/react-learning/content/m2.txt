@@ -1,0 +1,134 @@
+# MODULE 2 – JSX, Components and Rendering
+## 16. What is JSX?
+JSX stands for JavaScript XML. It is a syntax extension for JavaScript that lets us write HTML-like markup inside JavaScript. The build toolchain transforms it into JavaScript instructions React understands.
+```jsx
+function App() {
+  return <h1>Hello Adithya</h1>;
+}
+```
+- Easy to write UI
+- Readable code
+- Supports JavaScript expressions
+- Makes component structure clear
+## 17. Can browsers directly understand JSX?
+No. JSX must be transformed into regular JavaScript before execution. Tools such as Babel or the JSX transform in modern build toolchains do this.
+## 18. What are the rules of JSX?
+- Return a single parent element
+- Close all tags
+- Use className instead of class
+- Use camelCase for most event handlers
+- Use {} for JavaScript expressions
+- Use htmlFor instead of for
+- Use fragments when you don't need an extra DOM element
+```jsx
+function App() {
+  return (
+    <>
+      <h1>React Developer</h1>
+      <p>Learning React</p>
+    </>
+  );
+}
+```
+## 19. What is a React Fragment?
+A Fragment groups multiple elements without adding an extra DOM element. Use <></> or the explicit Fragment.
+```jsx
+import { Fragment } from "react";
+
+function App() {
+  return (
+    <Fragment>
+      <h1>Hello</h1>
+      <p>Welcome</p>
+    </Fragment>
+  );
+}
+```
+## 20. What is a component in React?
+A component is an independent, reusable piece of UI. Modern React mainly uses function components.
+```jsx
+function Welcome() {
+  return <h1>Welcome to React</h1>;
+}
+export default Welcome;
+```
+## 21. What are the types of components in React?
+Traditionally: functional components and class components. Functional components are the standard in modern React. Class components are still supported and worth recognizing in older codebases.
+## 22. What is a functional component?
+A JavaScript function that returns React elements.
+```jsx
+function Student() {
+  return (
+    <div>
+      <h2>Adithya</h2>
+      <p>CSE Graduate</p>
+    </div>
+  );
+}
+export default Student;
+```
+## 23. What is a class component?
+A JavaScript class that extends React.Component and implements a render() method.
+```jsx
+import React from "react";
+
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello React</h1>;
+  }
+}
+export default Welcome;
+```
+## 24. Functional vs Class components?
+| Functional | Class |
+| JavaScript function | JavaScript class |
+| Uses Hooks | Uses lifecycle methods |
+| No this required for props/state | Uses this |
+| Less boilerplate | More boilerplate |
+| Preferred in modern React | Common in older projects |
+## 25. What is the difference between export default and named export?
+A module can have one default export and multiple named exports.
+```jsx
+// Default export
+export default Header;
+import Header from "./Header";
+
+// Named exports
+export function Header() { return <h1>Header</h1>; }
+export function Footer() { return <h2>Footer</h2>; }
+import { Header, Footer } from "./Components";
+```
+## 26. What is the difference between rendering and re-rendering?
+Rendering means React calculates what the UI should look like. Re-rendering occurs when React runs a component again because of state updates, parent renders or changed context values. A re-render does not necessarily mean the real DOM changes.
+## 27. What is StrictMode in React?
+StrictMode is a development-only tool that helps identify potential problems. It can intentionally run certain functions more than once in development to expose bugs such as impure rendering or missing Effect cleanup. It does not double-render production builds.
+```jsx
+root.render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+## 28. What is the purpose of main.jsx and App.jsx in Vite?
+- main.jsx is the entry point. It creates the root and renders the App component.
+- App.jsx usually contains the main application component.
+```jsx
+// main.jsx
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+```
+## 29. What is Vite?
+Vite is a frontend build tool with a development server and production build process. It offers fast startup and Hot Module Replacement.
+```bash
+npm create vite@latest my-app -- --template react
+cd my-app
+npm install
+npm run dev
+npm run build
+```
+## 30. What is the difference between npm run dev and npm run build?
+- npm run dev: starts the local development server.
+- npm run build: creates optimized production files, generally in the dist folder for a Vite project.

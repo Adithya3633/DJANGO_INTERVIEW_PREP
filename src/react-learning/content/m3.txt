@@ -1,0 +1,124 @@
+# MODULE 3 – Props, State and Component Communication
+## 31. What are Props in React?
+Props (properties) pass data from a parent component to a child. Props are read-only: a child should not modify the props it receives.
+```jsx
+function Student(props) {
+  return (
+    <div>
+      <h2>{props.name}</h2>
+      <p>{props.role}</p>
+    </div>
+  );
+}
+
+function App() {
+  return <Student name="Adithya" role="React Developer" />;
+}
+```
+## 32. What is prop destructuring?
+Extracting properties directly from the props object, which improves readability.
+```jsx
+function Student({ name, role }) {
+  return (
+    <div>
+      <h1>{name}</h1>
+      <p>{role}</p>
+    </div>
+  );
+}
+```
+## 33. What is the difference between Props and State?
+This is one of the most frequently asked React questions.
+| Props | State |
+| Passed from parent to child | Managed inside a component |
+| Read-only | Updated using state setters |
+| Used for communication | Used for dynamic data |
+| Changes when parent supplies new values | Changes through state updates |
+```jsx
+function Student({ name }) {
+  const [marks, setMarks] = useState(80);
+  return (
+    <>
+      <h2>{name}</h2>
+      <p>Marks: {marks}</p>
+      <button onClick={() => setMarks(marks + 5)}>Increase Marks</button>
+    </>
+  );
+}
+```
+## 34. What is State in React?
+State is data managed by a component that can change over time. When state is updated using its setter, React schedules a re-render so the UI reflects the latest state.
+```jsx
+const [name, setName] = useState("Adithya");
+
+<button onClick={() => setName("Vardhan")}>Change Name</button>
+```
+## 35. What is component communication?
+- Parent to child – props
+- Child to parent – callback functions
+- Components at different levels – Context or shared state in a common parent
+- Application-wide state – Context or state-management libraries
+## 36. How can a child component send data to a parent?
+The parent passes a callback function as a prop. The child calls it with the required data.
+```jsx
+function Child({ sendData }) {
+  return <button onClick={() => sendData("Hello Parent")}>Send Data</button>;
+}
+
+function App() {
+  const [message, setMessage] = useState("");
+  return (
+    <>
+      <Child sendData={setMessage} />
+      <h2>{message}</h2>
+    </>
+  );
+}
+```
+## 37. Can we modify props directly?
+No. Props are read-only.
+```jsx
+// Incorrect
+function Student(props) {
+  props.name = "John";
+}
+```
+Correct approach: the parent passes a new value, or the component manages its own state if the data is locally owned.
+## 38. What is lifting state up?
+Moving shared state from child components to their nearest common parent. Example: two components need the same username, so it lives in their common parent and is passed down as props. This keeps shared data consistent.
+## 39. What is prop drilling?
+Passing data through multiple intermediate components just to reach a deeply nested child.
+```
+App → Dashboard → Profile → UserDetails
+```
+If UserDetails needs user info, every intermediate component may need to pass it. Solutions:
+- Context API
+- Component composition
+- State-management libraries such as Redux
+## 40. What is a default prop value?
+A value used when a component does not receive a particular prop.
+```jsx
+function Student({ name = "Guest" }) {
+  return <h1>{name}</h1>;
+}
+```
+If no name is passed, it displays Guest.
+## 41. What is state immutability?
+Do not directly modify existing state objects or arrays. Create a new object or array with the updated values so React can recognize the update.
+```jsx
+// Incorrect
+user.name = "John";
+setUser(user);
+
+// Correct
+setUser({ ...user, name: "John" });
+```
+## 42. What is the spread operator and why is it used in React?
+The spread operator (...) expands array elements or object properties. In React it creates updated arrays and objects without mutating existing state.
+```jsx
+const [user, setUser] = useState({ name: "Adithya", role: "Developer" });
+
+function updateRole() {
+  setUser({ ...user, role: "React Developer" });
+}
+```

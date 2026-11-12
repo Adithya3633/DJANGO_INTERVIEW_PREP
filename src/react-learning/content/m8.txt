@@ -1,0 +1,65 @@
+# MODULE 8 – React Router and Navigation
+## 110. What is React Router?
+A routing library used to navigate between different views in a React application without full-page reloads.
+```
+/          → Home
+/about     → About
+/login     → Login
+/dashboard → Dashboard
+```
+## 111. How do you install React Router?
+```bash
+npm install react-router-dom
+```
+## 112. How do you create routes in React?
+```jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+## 113. What is BrowserRouter?
+BrowserRouter uses the browser's History API to keep the UI synchronized with the URL. It provides routing functionality to the application.
+## 114. What is the difference between Link and anchor tag?
+| Link | Anchor tag |
+| Provided by React Router | HTML element |
+| Client-side navigation | Normally performs document navigation |
+| Avoids full-page reload for internal routes | Usually reloads the page |
+| Used for React app navigation | Used for normal hyperlinks |
+```jsx
+<Link to="/about">About</Link>
+```
+## 115. What is useNavigate?
+A React Router Hook used to navigate programmatically.
+```jsx
+const navigate = useNavigate();
+
+function handleLogin() {
+  navigate("/dashboard");
+}
+```
+## 116. What is useParams?
+Retrieves dynamic route parameters.
+```jsx
+<Route path="/users/:id" element={<User />} />
+
+function User() {
+  const { id } = useParams();
+  return <h1>User ID: {id}</h1>;
+}
+```
+If the URL is /users/10, the ID is 10 as a string.
+## 117. What is useLocation?
+Returns information about the current location, including pathname, search and state.
+```jsx
+const location = useLocation();
+return <h2>{location.pathname}</h2>;
+```

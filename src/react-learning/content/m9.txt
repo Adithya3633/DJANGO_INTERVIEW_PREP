@@ -1,0 +1,65 @@
+# MODULE 9 – Authentication and Protected Routes
+## 118. What is authentication?
+The process of verifying the identity of a user. Example: logging in with an email and password.
+## 119. What is authorization?
+Determines what an authenticated user is allowed to access or perform.
+- Admin can manage all users
+- Sales Executive can access assigned customers
+## 120. Difference between authentication and authorization?
+| Authentication | Authorization |
+| Who are you? | What can you access? |
+| Verifies identity | Checks permissions |
+| Login | Role/permission checking |
+| Happens before authorization | Follows identity verification |
+## 121. What is JWT?
+JSON Web Token: a compact token format commonly used to transfer signed claims between parties. A backend may issue a JWT after successful login, and the frontend includes it in requests.
+```js
+fetch("/api/profile", {
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+});
+```
+## 122. What is a protected route?
+A route that only authorized users can access.
+```jsx
+function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("token");
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+}
+
+<Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+```
+Important interview point: frontend route protection improves navigation and user experience, but backend authorization must enforce the actual security rules.
+## 123. What is localStorage?
+A browser storage mechanism for key-value data. Data persists across browser sessions until cleared.
+```js
+localStorage.setItem("name", "Adithya");
+const name = localStorage.getItem("name");
+localStorage.removeItem("name");
+```
+## 124. Difference between localStorage and sessionStorage?
+| localStorage | sessionStorage |
+| Persists across browser sessions | Usually lasts for the page session |
+| Remains until cleared | Cleared when the tab/session ends |
+| Shared by same-origin tabs | Separate per tab/session |
+| Larger persistent storage | Session-specific storage |
+## 125. What is the difference between localStorage and cookies?
+| localStorage | Cookies |
+| Accessed through JavaScript | May be accessible through JavaScript |
+| Not automatically sent with requests | Can be sent automatically based on cookie rules |
+| No built-in expiry unless managed | Supports expiry |
+| Cannot use HttpOnly | Can use HttpOnly |
+| Often used for preferences | Often used for sessions and authentication |
+Security point: sensitive authentication cookies should generally use appropriate HttpOnly, Secure and SameSite settings. JavaScript-accessible storage is vulnerable if an attacker achieves XSS.

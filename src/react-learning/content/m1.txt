@@ -1,0 +1,109 @@
+# MODULE 1 – React Introduction and Fundamentals
+## 1. What is React?
+React is an open-source JavaScript library developed by Meta for building user interfaces, especially single-page applications.
+It allows developers to create reusable UI components and efficiently update the user interface when data changes.
+Important features:
+- Component-based architecture
+- Virtual DOM
+- Reusability
+- Declarative UI
+- One-way data flow
+- Hooks for managing state and lifecycle-related behavior
+Example use case: in an e-commerce app, create separate components (Navbar, ProductList, ProductCard, Cart, Footer) and reuse ProductCard for every product instead of repeating HTML.
+## 2. Why do we use React?
+React makes frontend development easier by dividing a large application into smaller, reusable components.
+- Reusability reduces code duplication
+- Component-based architecture improves maintainability
+- Efficient UI updates
+- Easy state management
+- Large ecosystem and community
+- Supports integration with backend APIs
+## 3. Is React a library or a framework?
+React is a JavaScript library, not a complete framework. It focuses primarily on the view layer. Routing, advanced state management and other functionality come from additional libraries.
+- React Router – routing
+- Redux – state management
+- Axios – HTTP requests
+## 4. What is the difference between React and JavaScript?
+JavaScript is a programming language used to create dynamic functionality. React is a JavaScript library used to build user interfaces.
+| JavaScript | React |
+| Programming language | UI library |
+| Manipulates DOM directly when needed | Uses React's rendering system |
+| Supports general programming | Focuses on UI development |
+| Can build frontend without React | Requires JavaScript |
+## 5. What is a Single Page Application (SPA)?
+A SPA loads a single HTML page initially and updates content dynamically without reloading the entire page on every navigation. Example: Gmail. In React, libraries such as React Router handle navigation while the app keeps running.
+- Faster navigation after initial load
+- Better user experience
+- Less full-page reloading
+- Easier separation of frontend and backend
+## 6. What is the difference between SPA and MPA?
+| SPA | MPA |
+| Single HTML page | Multiple HTML pages |
+| Updates content dynamically | Loads new pages |
+| Navigation usually without full reload | Navigation often reloads page |
+| Example: React SPA | Traditional multi-page website |
+## 7. What is component-based architecture?
+The UI is divided into small, independent, reusable components. Each component manages a specific part of the interface.
+```
+App
+ ├── Navbar
+ ├── Sidebar
+ ├── MainContent
+ │    ├── UserProfile
+ │    └── ProductList
+ │         ├── ProductCard
+ │         └── ProductCard
+ └── Footer
+```
+## 8. What is declarative programming in React?
+Declarative programming means describing what the UI should look like for the current data, rather than manually specifying every DOM operation. You tell React what to display; React updates the UI.
+```jsx
+function App() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <h1>{count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increment</button>
+    </div>
+  );
+}
+```
+## 9. What is the difference between declarative and imperative programming?
+Declarative: describe the desired result. Imperative: specify the exact steps to achieve it.
+```js
+// Imperative JavaScript
+document.getElementById("demo").innerText = "Hello";
+```
+```jsx
+// Declarative React
+function App() {
+  return <h1>Hello</h1>;
+}
+```
+## 10. What are the main features of React?
+- JSX
+- Components
+- Props
+- State
+- Virtual DOM
+- Hooks
+- One-way data flow
+- Conditional rendering
+- Reusable UI
+- Event handling
+## 11. What is the Virtual DOM?
+The Virtual DOM is a lightweight, in-memory representation of the actual browser DOM. When state or props change, React creates an updated representation, compares it with the previous one and commits only the necessary changes to the real DOM. This helps avoid unnecessary DOM operations.
+Interview example: a page shows 10 products and one product's quantity changes. React can update the relevant UI instead of you manually rebuilding the entire page.
+## 12. What is the difference between Real DOM and Virtual DOM?
+| Real DOM | Virtual DOM |
+| Actual browser DOM | In-memory representation |
+| Direct browser structure | Managed by React |
+| DOM operations can be expensive | React calculates required updates |
+| Browser updates elements | React commits updates to DOM |
+Important: do not claim that React always updates only one DOM element. The rendering and commit process depends on component structure and reconciliation.
+## 13. What is reconciliation in React?
+Reconciliation is the process React uses to compare the previous rendered tree with the new rendered tree and determine what changes are needed, so the UI updates efficiently.
+## 14. What is React Fiber?
+React Fiber is React's internal reconciliation architecture. It lets React organize rendering work into smaller units and prioritize updates. It supports features such as interruptible rendering and concurrent rendering.
+## 15. What is one-way data binding in React?
+React follows one-way data flow. Data generally moves from parent to child through props. A child can communicate changes to a parent using callback functions passed through props. This makes behavior easier to understand and debug.

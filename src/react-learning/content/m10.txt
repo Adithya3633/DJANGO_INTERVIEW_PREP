@@ -1,0 +1,89 @@
+# MODULE 10 – React Advanced Concepts and Performance
+## 126. What is React.memo?
+A higher-order component that can skip re-rendering when props have not changed. Useful when a component renders often with unchanged props and rendering is expensive enough to justify memoization.
+```jsx
+const Student = React.memo(function Student({ name }) {
+  console.log("Student rendered");
+  return <h2>{name}</h2>;
+});
+```
+## 127. What is a Higher-Order Component (HOC)?
+A function that takes a component and returns an enhanced component. A pattern for reusing component logic.
+```jsx
+function withMessage(Component) {
+  return function EnhancedComponent() {
+    return (
+      <div>
+        <h2>Welcome</h2>
+        <Component />
+      </div>
+    );
+  };
+}
+```
+## 128. What is lazy loading in React?
+Loading a component only when it is required, using lazy().
+```jsx
+const About = lazy(() => import("./About"));
+
+<Suspense fallback={<h2>Loading...</h2>}>
+  <About />
+</Suspense>
+```
+## 129. What is code splitting?
+Dividing a large JavaScript bundle into smaller chunks loaded when needed. It reduces the initial JavaScript users must download. Dynamic imports and React.lazy are commonly used.
+## 130. What is Suspense?
+Lets React display a fallback UI while a child is waiting for something it supports, such as a lazy-loaded module.
+```jsx
+<Suspense fallback={<p>Loading...</p>}>
+  <About />
+</Suspense>
+```
+## 131. What is an Error Boundary?
+A React component that catches rendering errors in its child tree and displays fallback UI. Traditionally implemented with class components. They do not catch every kind of error, such as errors in event handlers or ordinary asynchronous callbacks.
+## 132. What is the difference between React.memo, useMemo and useCallback?
+| Feature | Purpose |
+| React.memo | Memoizes a component |
+| useMemo | Memoizes a calculated value |
+| useCallback | Memoizes a function reference |
+## 133. What causes unnecessary re-renders?
+- State updates
+- Parent component re-renders
+- Context value changes
+- New object or function references passed as props
+- State being stored too high in the component tree
+## 134. How do you optimize a React application?
+- Use appropriate component structure
+- Avoid unnecessary state updates
+- Use React.memo when useful
+- Use useMemo for expensive calculations
+- Use useCallback when stable callback references matter
+- Implement code splitting
+- Lazy-load suitable components
+- Avoid unnecessary API calls
+- Use pagination or virtualization for large lists
+- Profile before optimizing
+## 135. What is React Profiler?
+A tool used to measure component rendering performance. It helps identify components that render frequently or take too long to render.
+## 136. What is batching in React?
+Grouping multiple state updates into a single rendering update where possible.
+```jsx
+function updateData() {
+  setName("Adithya");
+  setAge(22);
+  setRole("Developer");
+}
+```
+React can batch these updates to avoid unnecessary renders.
+## 137. What is hydration?
+Attaching React's behavior and event handling to HTML that was already generated on the server. Commonly used in server-side rendering frameworks.
+## 138. What is SSR?
+Server-Side Rendering: generating HTML on the server and sending it to the browser. It can improve initial content visibility and help with search engine discoverability depending on the application.
+## 139. What is CSR?
+Client-Side Rendering: the browser downloads JavaScript and React renders the app on the client. A typical Vite React SPA uses client-side rendering.
+## 140. Difference between CSR and SSR?
+| CSR | SSR |
+| Rendering mainly in browser | Initial HTML rendered on server |
+| Browser executes app rendering | Server generates HTML |
+| Initial content may depend on JS loading | Can provide HTML earlier |
+| Common in Vite SPA | Common in Next.js SSR applications |

@@ -1,8 +1,7 @@
-# Django Modules
+# Django, React & Full-Stack Interview Prep
 
-A React + Vite study app for learning Django and Django REST Framework. It includes
-module navigation, full-text search, code copy buttons, quick quizzes and a progress
-tracker saved in your browser.
+A React + Vite learning app with separate Django, React and Full-Stack learning tracks.
+Choose a track from the start screen to access its modules and study tools.
 
 ## Run locally
 
@@ -19,7 +18,12 @@ npm run build
 
 Requires Node.js 18 or newer.
 
-## Modules
+## Learning tracks
+
+### Django
+
+Includes module navigation, full-text search, code copy buttons, quick quizzes and
+a progress tracker saved in your browser.
 
 1. Django fundamentals
 2. URLs and views
@@ -29,11 +33,23 @@ Requires Node.js 18 or newer.
 6. DRF CRUD, ViewSets and routers
 7. Authentication, JWT, permissions and security
 
+### React
+
+Includes 11 modules of interview questions, searchable study cards, flashcards, and
+browser-saved progress.
+
+### Full-Stack Fundamentals
+
+Includes 92 interview questions across frontend/backend fundamentals, database
+integration, authentication, browser storage, web security and practical integration.
+Its progress is saved separately from the Django and React tracks.
+
 ## Project structure
 
 ```text
 src/
-  App.jsx                  sidebar, search, progress, navigation
+  App.jsx                  learning-track chooser
+  DjangoApp.jsx            Django modules, navigation and progress
   styles.css
   components/
     Markdown.jsx           markdown renderer
@@ -48,6 +64,14 @@ src/
     part5-drf-basics.md    DRF basics, serializers, APIView
     part6-drf-crud.md      DRF CRUD, ViewSets, routers
     part7-auth-security.md authentication, JWT, permissions, security
+  react-learning/
+    ReactApp.jsx            React study and flashcard experience
+    data.js                 parsed React module content
+    content/                11 React interview-prep modules
+  fullstack-learning/
+    FullstackApp.jsx        Full-stack study path and progress
+    data.js                 parsed sections and questions
+    content/                full-stack fundamentals material
 ```
 
 ## Adding a module

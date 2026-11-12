@@ -1,0 +1,138 @@
+# MODULE 11 – JavaScript Concepts Required for React
+## 141. Difference between var, let and const?
+| var | let | const |
+| Function-scoped | Block-scoped | Block-scoped |
+| Can redeclare | Cannot redeclare in same scope | Cannot redeclare in same scope |
+| Can reassign | Can reassign | Cannot reassign |
+| Hoisted and initialized as undefined | Hoisted but in TDZ | Hoisted but in TDZ |
+## 142. What is hoisting?
+JavaScript's behavior of processing declarations before executing the code in their scope.
+```js
+console.log(a); // undefined
+var a = 10;
+```
+let and const are also hoisted, but accessing them before initialization causes a ReferenceError because they are in the Temporal Dead Zone.
+## 143. What is the Temporal Dead Zone?
+The period between entering a scope and initializing a let or const variable. Accessing the variable during this period results in a ReferenceError.
+## 144. What is a closure?
+A function that retains access to variables from its outer lexical scope even after the outer function has finished executing. Useful for private data and callbacks.
+```js
+function outer() {
+  let count = 0;
+  return function inner() {
+    count++;
+    console.log(count);
+  };
+}
+
+const counter = outer();
+counter(); // 1
+counter(); // 2
+counter(); // 3
+```
+## 145. What is the difference between == and ===?
+- == compares values after type coercion when necessary.
+- === compares without type coercion.
+```js
+console.log(5 == "5");  // true
+console.log(5 === "5"); // false
+```
+## 146. What is the difference between null and undefined?
+- undefined: a variable has been declared but not assigned a value.
+- null: an intentional absence of a value.
+## 147. What is the difference between map(), filter() and reduce()?
+| Method | Purpose |
+| map() | Transforms every element |
+| filter() | Selects elements based on a condition |
+| reduce() | Combines elements into one accumulated result |
+```js
+const nums = [1, 2, 3, 4];
+const doubled = nums.map(n => n * 2);              // [2, 4, 6, 8]
+const even = nums.filter(n => n % 2 === 0);        // [2, 4]
+const total = nums.reduce((sum, n) => sum + n, 0); // 10
+```
+## 148. What is destructuring?
+Extracting values from arrays or properties from objects.
+```js
+const user = { name: "Adithya", age: 22 };
+const { name, age } = user;
+```
+```jsx
+function Student({ name, age }) {
+  return <h2>{name} - {age}</h2>;
+}
+```
+## 149. What is the spread operator?
+Expands iterable elements or object properties.
+```js
+const a = [1, 2];
+const b = [...a, 3, 4];
+console.log(b); // [1, 2, 3, 4]
+```
+## 150. What is the rest operator?
+Collects remaining arguments or properties into an array or object.
+```js
+function add(...numbers) {
+  return numbers.reduce((sum, n) => sum + n, 0);
+}
+console.log(add(10, 20, 30)); // 60
+```
+## 151. What is an arrow function?
+A shorter syntax for writing functions. Arrow functions do not have their own this; they inherit it lexically.
+```js
+const add = (a, b) => a + b;
+console.log(add(10, 20));
+```
+## 152. What is the difference between synchronous and asynchronous JavaScript?
+Synchronous: operations execute one after another; each must finish before the next. Asynchronous: certain operations are handled later without blocking the main execution flow.
+- Synchronous: basic calculations
+- Asynchronous: API requests, timers, file operations
+## 153. What is the event loop?
+Coordinates JavaScript execution, the call stack and asynchronous task queues. It lets asynchronous callbacks run when the call stack becomes available.
+## 154. What is the difference between Promise and async/await?
+A Promise is an object representing the result of an asynchronous operation. Async/await is syntax that makes Promise-based code easier to read and write.
+## 155. What is the difference between for...of and for...in?
+- for...of iterates over iterable values.
+- for...in iterates over enumerable property keys.
+```js
+const arr = [10, 20, 30];
+for (const value of arr) console.log(value);  // 10 20 30
+for (const index in arr) console.log(index);  // "0" "1" "2"
+```
+## 156. What is event bubbling?
+An event starts at the target element and propagates upward through its ancestors. Clicking a button inside a div can trigger both handlers unless propagation is stopped.
+## 157. What is event delegation?
+Attaching an event listener to a parent element to handle events from its children using event propagation. It can reduce the number of event listeners.
+## 158. What is the difference between debounce and throttle?
+Debounce waits until a period of inactivity before executing. Throttle limits execution to a maximum frequency.
+- Debounce: search input
+- Throttle: scroll listener
+## 159. What is the difference between shallow copy and deep copy?
+A shallow copy copies only the top-level structure; nested objects are still shared. A deep copy creates independent copies of nested data.
+```js
+const user = { name: "Adithya", address: { city: "Hyderabad" } };
+const shallow = { ...user };
+// shallow.address is the same object as user.address
+```
+## 160. What is the difference between local and global scope?
+- Global scope: variables accessible throughout the applicable global environment.
+- Local scope: variables accessible only within their function or block scope.
+## 161. What is the difference between function declaration and function expression?
+```js
+// Declaration
+function greet() { return "Hello"; }
+
+// Expression
+const greet = function() { return "Hello"; };
+```
+Declarations can generally be called before their declaration due to hoisting. Function expressions assigned to const cannot be accessed before initialization.
+## 162. What is optional chaining?
+Optional chaining (?.) safely accesses nested properties when an intermediate value may be null or undefined.
+```js
+const city = user?.address?.city;
+```
+## 163. What is the nullish coalescing operator?
+The ?? operator provides a fallback only when the left side is null or undefined. Unlike ||, it preserves values such as 0 and an empty string.
+```js
+const name = userName ?? "Guest";
+```

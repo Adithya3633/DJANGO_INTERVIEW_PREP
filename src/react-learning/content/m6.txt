@@ -1,0 +1,114 @@
+# MODULE 6 – Events and Forms
+## 76. What is event handling in React?
+Responding to user actions such as clicks, typing and form submission. React uses camelCase event names.
+```jsx
+function handleClick() {
+  alert("Button clicked");
+}
+
+<button onClick={handleClick}>Click Me</button>
+```
+## 77. What is the difference between onClick and onChange?
+- onClick: triggered when an element is clicked.
+- onChange: triggered when the value of an input or other changeable control changes.
+```jsx
+<input onChange={handleChange} />
+<button onClick={handleClick}>Submit</button>
+```
+## 78. What is an event object in React?
+React event handlers receive an event object with information about the event. event.target refers to the element that triggered it.
+```jsx
+function handleChange(event) {
+  console.log(event.target.value);
+}
+```
+## 79. What is preventDefault()?
+Prevents the browser's default behavior for an event. In a form it stops the normal submission and page reload.
+```jsx
+function handleSubmit(event) {
+  event.preventDefault();
+  console.log("Form submitted");
+}
+
+<form onSubmit={handleSubmit}>
+  <button type="submit">Submit</button>
+</form>
+```
+## 80. What is a controlled component?
+An input whose value is controlled by React state. The React state is the source of truth.
+```jsx
+const [name, setName] = useState("");
+
+<input
+  type="text"
+  value={name}
+  onChange={(e) => setName(e.target.value)}
+/>
+```
+## 81. What is an uncontrolled component?
+An input that stores its value in the DOM rather than in React state. Access it using a ref.
+```jsx
+const inputRef = useRef(null);
+
+function handleSubmit() {
+  alert(inputRef.current.value);
+}
+
+<input ref={inputRef} />
+```
+## 82. Controlled vs Uncontrolled components?
+| Controlled | Uncontrolled |
+| Value managed by React state | Value managed by DOM |
+| Uses value and onChange | Often uses defaultValue and refs |
+| Easier validation | Less state code |
+| Common in React forms | Useful for simple forms or DOM integrations |
+## 83. How do you handle multiple form inputs using one state?
+Store form values in an object and update by the input's name attribute.
+```jsx
+const [form, setForm] = useState({ name: "", email: "" });
+
+function handleChange(e) {
+  const { name, value } = e.target;
+  setForm(prev => ({ ...prev, [name]: value }));
+}
+
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log(form);
+}
+
+<form onSubmit={handleSubmit}>
+  <input name="name" value={form.name} onChange={handleChange} placeholder="Name" />
+  <input name="email" value={form.email} onChange={handleChange} placeholder="Email" />
+  <button type="submit">Submit</button>
+</form>
+```
+Important interview point: the name attribute determines which property gets updated.
+## 84. How do you clear form inputs after submission?
+Reset the state after successfully processing the form.
+```jsx
+function handleSubmit(e) {
+  e.preventDefault();
+  console.log(form);
+  setForm({ name: "", email: "" });
+}
+```
+This is particularly useful in the user-registration and CRUD exercises you've been practicing.
+## 85. How do you validate a form in React?
+Validate input values before submitting.
+```jsx
+function handleSubmit(e) {
+  e.preventDefault();
+
+  if (!name.trim()) {
+    alert("Name is required");
+    return;
+  }
+  if (!email.includes("@")) {
+    alert("Enter a valid email");
+    return;
+  }
+  console.log("Valid form");
+}
+```
+For real applications, use stronger rules and consider libraries such as Formik or React Hook Form.

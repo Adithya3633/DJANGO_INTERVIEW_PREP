@@ -1,111 +1,78 @@
-import { useEffect, useMemo, useState } from 'react'
-import { modules } from './modules'
-import Markdown from './components/Markdown'
-import Quiz from './components/Quiz'
+import { useEffect, useState } from 'react'
+import DjangoApp from './DjangoApp.jsx'
+import ReactApp from './react-learning/ReactApp.jsx'
+import FullstackApp from './fullstack-learning/FullstackApp.jsx'
 
-const KEY = 'django-prep-progress'
-const load = () => {
-  try {
-    return JSON.parse(localStorage.getItem(KEY)) || {}
-  } catch {
-    return {}
-  }
-}
-const fromHash = () => location.hash.slice(1) || modules[0].id
+const tracks = [
+  {
+    id: 'django',
+    name: 'Django',
+    description: 'Prepare for Django and Django REST Framework interviews.',
+    details: '7 learning modules · quizzes · saved revision progress',
+    icon: 'Dj',
+    className: 'django-track',
+  },
+  {
+    id: 'react',
+    name: 'React',
+    description: 'Practice React concepts, patterns, and interview questions.',
+    details: '11 learning modules · flashcards · saved study progress',
+    icon: 'Re',
+    className: 'react-track',
+  },
+  {
+    id: 'fullstack',
+    name: 'Full-Stack Fundamentals',
+    description: 'Learn how frontend, APIs, databases, authentication, and security work together.',
+    details: '6 topic areas · 92 questions · saved progress',
+    icon: 'FS',
+    className: 'fullstack-track',
+  },
+]
 
 export default function App() {
-  const [done, setDone] = useState(load)
-  const [query, setQuery] = useState('')
-  const [open, setOpen] = useState(false)
-  const [id, setId] = useState(fromHash)
+  const [track, setTrack] = useState(null)
 
   useEffect(() => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(done))
-    } catch {
-      /* storage unavailable */
-    }
-  }, [done])
+    const selectedTrack = tracks.find((item) => item.id === track)
+    document.title = selectedTrack ? `${selectedTrack.name} Interview Prep` : 'Interview Prep'
+  }, [track])
 
-  useEffect(() => {
-    const onHash = () => setId(fromHash())
-    window.addEventListener('hashchange', onHash)
-    return () => window.removeEventListener('hashchange', onHash)
-  }, [])
-
-  const idx = Math.max(0, modules.findIndex((m) => m.id === id))
-  const mod = modules[idx]
-
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    document.title = `${mod.label}: ${mod.title}`
-  }, [mod])
-
-  const q = query.trim().toLowerCase()
-  const shown = useMemo(
-    () => (q ? modules.filter((m) => (m.title + ' ' + m.body).toLowerCase().includes(q)) : modules),
-    [q]
-  )
-  const doneCount = modules.filter((m) => done[m.id]).length
-  const go = (m) => {
-    location.hash = m.id
-    setOpen(false)
+  if (track) {
+    return (
+      <div className={track === 'fullstack' ? 'selected-track fullstack-selected-track' : 'selected-track'}>
+        <div className="track-topbar">
+          <button className="track-back-button" onClick={() => setTrack(null)}>
+            ← All learning tracks
+          </button>
+        </div>
+        {track === 'django' ? <DjangoApp /> : track === 'react' ? <ReactApp /> : <FullstackApp />}
+      </div>
+    )
   }
-  const prev = modules[idx - 1]
-  const next = modules[idx + 1]
 
   return (
-    <div className="layout">
-      <button className="menu" onClick={() => setOpen(!open)} aria-expanded={open}>
-        {open ? 'Close' : 'Modules'}
-      </button>
-
-      <aside className={open ? 'side open' : 'side'}>
-        <h1>Django modules</h1>
-        <p className="sub">A practical learning path</p>
-        <div className="bar" role="progressbar" aria-valuenow={doneCount} aria-valuemax={modules.length}>
-          <span style={{ width: `${(doneCount / modules.length) * 100}%` }} />
-        </div>
-        <p className="count">{doneCount} of {modules.length} modules revised</p>
-        <input
-          type="search"
-          placeholder="Search all modules"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          aria-label="Search all modules"
-        />
-        <nav>
-          {shown.length === 0 && <p className="none">No module contains that text.</p>}
-          {shown.map((m) => (
-            <button key={m.id} className={m.id === mod.id ? 'nav active' : 'nav'} onClick={() => go(m)}>
-              <span className={done[m.id] ? 'tick on' : 'tick'} aria-hidden="true">{done[m.id] ? '✓' : ''}</span>
-              <span>
-                <b>{m.label}</b>
-                <small>{m.title}</small>
-              </span>
+    <main className="track-picker">
+      <div className="picker-content">
+        <p className="picker-eyebrow">INTERVIEW PREP</p>
+        <h1>Choose what you want to learn</h1>
+        <p className="picker-intro">Pick a learning track to continue your interview preparation.</p>
+        <div className="track-cards">
+          {tracks.map((item) => (
+            <button
+              className={`track-card ${item.className}`}
+              key={item.id}
+              onClick={() => setTrack(item.id)}
+            >
+              <span className="track-icon" aria-hidden="true">{item.icon}</span>
+              <span className="track-name">{item.name}</span>
+              <span className="track-description">{item.description}</span>
+              <span className="track-details">{item.details}</span>
+              <span className="track-action">Start learning <span aria-hidden="true">→</span></span>
             </button>
           ))}
-        </nav>
-      </aside>
-
-      <main>
-        <article>
-          <Markdown source={mod.body} />
-          {mod.quiz.length > 0 && <Quiz key={mod.id} items={mod.quiz} />}
-          <div className="actions">
-            <button
-              className={done[mod.id] ? 'primary on' : 'primary'}
-              onClick={() => setDone({ ...done, [mod.id]: !done[mod.id] })}
-            >
-              {done[mod.id] ? 'Revised (click to undo)' : 'Mark as revised'}
-            </button>
-            <div className="pager">
-              {prev && <button onClick={() => go(prev)}>Back: {prev.label}</button>}
-              {next && <button onClick={() => go(next)}>Next: {next.label}</button>}
-            </div>
-          </div>
-        </article>
-      </main>
-    </div>
+        </div>
+      </div>
+    </main>
   )
 }
